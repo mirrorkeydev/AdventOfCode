@@ -3,7 +3,6 @@ with open('input.txt', 'r') as f:
     input = [line.strip() for line in f]
     input.append("")
 
-
 passports = []
 passport = ""
 for line in input:
@@ -24,7 +23,6 @@ for passport in passports:
         if key in required_keys:
 
             if key == "byr":
-
                 value = int(value)
                 if value < 1920 or value > 2002:
                     break
@@ -66,6 +64,7 @@ for passport in passports:
                     break
                 
             required_keys.remove(key)
+
     if len(required_keys) == 0:
         num_valid += 1
 
