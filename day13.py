@@ -33,7 +33,7 @@ def combine_phased_rotations(a_period, a_phase, b_period, b_phase):
     The combined rotation is at its reference point if and only if both a and b
     are at their reference points.
     """
-    gcd, s, t = extended_gcd(a_period, b_period)
+    gcd, s, _ = extended_gcd(a_period, b_period)
     phase_difference = a_phase - b_phase
     pd_mult, pd_remainder = divmod(phase_difference, gcd)
     if pd_remainder:
