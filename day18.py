@@ -3,47 +3,51 @@ import re
 import math
 import copy
 
-# with open('input.txt', 'r') as f:
-#   input = [line.strip() for line in f]
+# Part A
 
-# def recurse_group(string):
-#     total = 0
-#     index = 0
-#     pre_group_operator = '+'
-#     while index < len(string):
-#         if string[index] == "(":
-#             sub_total, offset = recurse_group(string[index + 1:])
-#             index += offset + 2
-#             if pre_group_operator == "+":
-#                 total += sub_total
-#             else:
-#                 total *= sub_total
-#             continue
+with open('input.txt', 'r') as f:
+  input = [line.strip() for line in f]
 
-#         elif string[index] == ")":
-#             return (total, index)
+def recurse_group(string):
+    total = 0
+    index = 0
+    pre_group_operator = '+'
+    while index < len(string):
+        if string[index] == "(":
+            sub_total, offset = recurse_group(string[index + 1:])
+            index += offset + 2
+            if pre_group_operator == "+":
+                total += sub_total
+            else:
+                total *= sub_total
+            continue
+
+        elif string[index] == ")":
+            return (total, index)
         
-#         elif re.match(r"\d", string[index]):
-#             if pre_group_operator == "+":
-#                 total += int(string[index])
-#             else:
-#                 total *= int(string[index])
+        elif re.match(r"\d", string[index]):
+            if pre_group_operator == "+":
+                total += int(string[index])
+            else:
+                total *= int(string[index])
         
-#         elif re.match(r"[+*]", string[index]):
-#             pre_group_operator = string[index]
+        elif re.match(r"[+*]", string[index]):
+            pre_group_operator = string[index]
 
-#         index += 1
+        index += 1
         
-#     return (total, index)
+    return (total, index)
 
-# my_sum = 0
-# for line in input:
-#     line = line.replace(" ", "")
-#     total, offset = recurse_group(line)
+my_sum = 0
+for line in input:
+    line = line.replace(" ", "")
+    total, offset = recurse_group(line)
 
-#     my_sum += total
+    my_sum += total
 
-# print(my_sum)
+print(my_sum)
+
+# Part B
 
 with open('input.txt', 'r') as f:
   input = [line.strip() for line in f]
@@ -82,7 +86,6 @@ def regex_paren_away(string):
         if not count:
             break
     return multiply_string_culm(reverse_pemdas(string))
-
 
 my_sum = 0
 for line in input:
