@@ -93,7 +93,7 @@ for rule in rules:
 rules_char['8'] = evaluate_sequence(rules_nested['42']) + "+"
 
 some_rule = []
-for i in range(50):
+for i in range(5):
     some_rule.append("(?:" + evaluate_sequence(rules_nested['42']) + "{" + str(i+1) + "}" + evaluate_sequence(rules_nested['31']) + "{" + str(i+1) + "})")
 
 rules_char['11'] = "(?:" + "|".join(some_rule) + ")"
