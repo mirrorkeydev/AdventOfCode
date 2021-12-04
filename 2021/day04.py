@@ -1,17 +1,10 @@
 import re
-import sys
-
-# with open("input.txt") as f:
-#   #arr = list(map(int, (x.strip() for x in f.readlines())))
-#   arr = list((x.strip() for x in f.readlines()))
 
 f = open("input.txt", "r")
 lines = f.readlines()
 arr = []
 for line in lines:
   arr.append(line.strip())
-
-print(arr)
 
 numbers_to_draw = [x for x in arr[0].split(",")]
 
@@ -28,44 +21,28 @@ for row in arr[2:]:
   board.append([*m.groups()])
 boards.append(board)
 
-for board in boards:
-  for row in board:
-    print(row)
-  print("")
+def is_winner(board, drawn_numbers) -> bool:
+  def winner(board, drawn_numbers):
+    for row in board:
+      winner = True
+      for val in row:
+        if val not in drawn_numbers:
+          winner = False
+      if winner:
+        return True
+  horizontal = winner(board, drawn_numbers)
+  vertical = winner([[row[i] for row in board] for i in range(len(board[0]))], drawn_numbers)
+  return True if horizontal or vertical else False
 
-def check_if_winner(board, drawn_numbers) -> bool:
-  for row in board:
-    winner_horizontal = True
-    for val in row:
-      if val not in drawn_numbers:
-        winner_horizontal = False
-    if winner_horizontal:
-      return True
-  
-  # transposed
-  for row in [[row[i] for row in board] for i in range(len(board[0]))]:
-    winner_vertical = True
-    for val in row:
-      if val not in drawn_numbers:
-        winner_vertical = False
-    if winner_vertical:
-      return True
-  
-  return False
-
-drawn_numbers = []
-for num in numbers_to_draw:
-  drawn_numbers.append(num)
+for i in range(len(numbers_to_draw)):
   for board in boards:
-    is_winner = check_if_winner(board, drawn_numbers)
-    if is_winner:
-      print("winner:", board)
-      winning_board = board
+    if is_winner(board, numbers_to_draw[:i+1]):
       unmarked_nums_sum = 0
-      for row in winning_board:
+      for row in board:
         for val in row:
-          if val not in drawn_numbers:
+          if val not in numbers_to_draw[:i+1]:
             unmarked_nums_sum += int(val)
-      print(unmarked_nums_sum*int(num))
-      boards = [x for x in boards if x is not winning_board]
+      print(unmarked_nums_sum*int(numbers_to_draw[i]))
+      # Part 1: sys.exit(0) here
+      boards = [b for b in boards if b is not board]
 
