@@ -32,11 +32,8 @@ print((board >= 2).sum())
 # Part 2
 for line in lines:
   x1, y1, x2, y2 = line
-  if x1 == x2:
+  if x1 == x2 or y1 == y2:
     continue # we already did this in part 1
-
-  elif y1 == y2:
-    continue # and this as well
 
   else: # draw a diagonal
     cur_x, cur_y = x1, y1
