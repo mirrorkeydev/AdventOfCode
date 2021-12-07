@@ -1,6 +1,4 @@
 from collections import defaultdict
-import re
-import numpy as np
 
 with open("input.txt") as f:
   fishies = list((int(x.strip()) for x in f.readlines()[0].split(",")))
