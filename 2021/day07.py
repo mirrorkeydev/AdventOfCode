@@ -15,4 +15,6 @@ def get_cheapest_fuel(delta):
 print(get_cheapest_fuel(lambda c, i: abs(c - i)))
   
 # Part 2
+# Formula for nth triangular number (n^2+n)/2 from here:
+# https://math.stackexchange.com/q/60578
 print(get_cheapest_fuel(lambda c, i: int((abs(c - i)**2 + abs(c - i))/2)))
