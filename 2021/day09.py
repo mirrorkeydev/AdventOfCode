@@ -29,24 +29,18 @@ print(s)
 
 # Part 2
 def walk_basin(board, marked, x, y):
-  if x < 0 or y < 0 or x > len(board[0]) - 1 or y > len(board) - 1:
+  if (x < 0 or y < 0 or x > len(board[0]) - 1 or y > len(board) - 1
+      or (x, y) in marked or board[y][x] == 9):
     return 0
-
-  if (x, y) in marked or board[y][x] == 9:
-    return 0 
   
   marked.add((x, y))
 
-  s = 0
-  for x_off, y_off in ((1, 0), (-1, 0), (0, -1), (0, 1)):
-    s += walk_basin(board, marked, x + x_off, y + y_off)
-
-  return s + 1
+  return sum(walk_basin(board, marked, x + x_off, y + y_off)
+    for x_off, y_off in ((1, 0), (-1, 0), (0, -1), (0, 1))) + 1
 
 marked = set()
 sizes = []
-for loc in low_locations:
-  x, y = loc
+for x, y in low_locations:
   sizes.append(walk_basin(arr, marked, x, y))
 
 print(math.prod(sorted(sizes)[-3:]))
